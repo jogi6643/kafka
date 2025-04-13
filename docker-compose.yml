@@ -23,6 +23,18 @@ services:
     networks:
       - kafka-network
 
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+
   backend:
     build: .
     container_name: node-kafka-app
@@ -34,6 +46,9 @@ services:
       - kafka-network
     environment:
       - KAFKA_BROKER=kafka:9092
+
+volumes:
+  jenkins_home:
 
 networks:
   kafka-network:

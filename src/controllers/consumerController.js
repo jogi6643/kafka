@@ -1,5 +1,5 @@
 const kafka = require("kafka-node");
-
+// test topic
 const client = new kafka.KafkaClient({ kafkaHost: process.env.KAFKA_BROKER || "localhost:9092" });
 const consumer = new kafka.Consumer(client, [{ topic: "test-topic", partition: 0 }], { autoCommit: true });
 
